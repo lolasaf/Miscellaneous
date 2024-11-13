@@ -129,30 +129,5 @@ int main(int ac, char **av)
 			write(1, "\n", 1);
 		}
 	}
-
-	/*for (int i = 1; i < combs; i++)
-	{
-		if (isbalance(av[1], i))
-		{
-			int j = 0;
-			while (av[1][j])
-			{
-				if (av[1][j] == '(' || av[1][j] == ')')
-				{
-					if ((1 & (i >> j)))
-					{
-						write(1, &av[1][j], 1);
-						write(1, " ", 1);
-					}
-					else
-						write(1, " ", 1);
-				}
-				else
-					write(1, " ", 1);
-				j++;
-			}
-			write(1, "\n", 1);
-		}
-	}*/
 	return (0);
 }
