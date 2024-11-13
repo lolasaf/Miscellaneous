@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   tsp.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wel-safa <wel-safa@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: wel-safa <wel-safa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/11 22:58:26 by wel-safa          #+#    #+#             */
-/*   Updated: 2024/11/12 13:34:23 by wel-safa         ###   ########.fr       */
+/*   Created: 2024/11/12 21:06:40 by wel-safa          #+#    #+#             */
+/*   Updated: 2024/11/13 01:52:31 by wel-safa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
 Assignment name  : tsp
 Expected files   : *.c *.h
-Allowed functions and globals: write, sqrtf, getline, fabsf, memcpy, printf, 
-malloc, calloc,realloc, free, errno, write
-
------------------------------------------------------------------------------
+Allowed functions and globals: write, sqrtf, getline, fabsf, memcpy, printf,
+malloc, calloc, realloc, free, errno, write, fscanf
+*/
+/*-----------------------------------------------------------------------------
 
 The first publication referring to this problem as the 
 "traveling salesman problem"
@@ -77,3 +77,99 @@ $> ./tsp < square.txt | cat -e
 4.00$
 */
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+float compute_distance(float **dist_matrix, int *sol, int count)
+{
+	float total_dist = 0;
+	for (int i = 0; i < count; i++)
+	{
+		if (i == count - 1)
+			total_dist += dist_matrix[sol[i]][sol[0]];
+		else
+			total_dist += dist_matrix[sol[i]][sol[i + 1]];
+	}
+	return (total_dist);
+}
+
+float calculate_distance(float *p1, float *p2)
+{
+	float distance;
+
+	if (p1 == p2) return 0;
+	
+	distance = sqrtf((p1[0] - p2[0])*(p1[0] - p2[0]) + (p1[1] - p2[1])*(p1[1] - p2[1]));
+	return (distance);
+}
+
+float	solve_tsp(float **dist_matrix, int *sol, int start, int count, float min_dist)
+{
+	if (start == count)
+	{
+		float curr_dist = compute_distance(dist_matrix, sol, count);
+		if (curr_dist < min_dist)
+			return (curr_dist);
+		else
+			return (min_dist);
+	}
+	else
+	{
+		for (int j = start; j < count; j++)
+		{
+			int swap = sol[j];
+			sol[j] = sol[start];
+			sol[start] = swap;
+
+			min_dist = solve_tsp(dist_matrix, sol, start + 1, count, min_dist);
+
+			swap = sol[j];
+			sol[j] = sol[start];
+			sol[start] = swap;
+		}
+	}
+}
+
+int	main(void)
+{
+	float x, y;
+	int count = 0;
+	float **coords = NULL; // coordinates
+	
+	while(fscanf(stdin, "%f, %f\n", &x, &y) == 2)
+	{
+		coords = realloc(coords, sizeof(float *) * (count + 1));
+		coords[count] = malloc(sizeof(float) * 2);
+		coords[count][0] = x;
+		coords[count][1] = y;
+		count++;
+	}
+	
+	float **dist_matrix = malloc(sizeof(float *) * count); // distance matrix
+	
+	for (int j = 0; j < count; j++)
+	{
+		dist_matrix[j] = malloc (sizeof(float) * count);
+		for (int k = 0; k < count; k++)
+		{
+			dist_matrix[j][k] = calculate_distance(coords[j], coords[k]);
+		}
+	}
+	
+	int sol[count];
+	for (int i = 0; i < count; i++)
+		sol[i] = i;
+	float min_dist = solve_tsp(dist_matrix, sol, 0, count, INFINITY);
+	
+	printf("%.2f\n", min_dist);
+	// NEED TO FREE coords + dist_matrix
+
+	
+	/*Print coordinates test*/
+	/*for(int j = 0; j < i; j++)
+	{
+		printf("(%.2f, %.2f)\n", coords[j][0], coords[j][1]);
+	}*/
+
+}
