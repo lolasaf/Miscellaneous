@@ -89,21 +89,21 @@ int main(int ac, char **av)
 	int full_mask = (1 << len) - 1;
 
 	int removed = 0;
-	for (int i = full_mask; i > 0; i--)
+	for (int i = full_mask; i >= 0; i--)
 	{
 		removed = isbalance(av[1], i);
 		if (removed > -1)
 			break;
 	}
-	if (removed == -1)
-		return (1);
-	else if (removed == 0)
+	/*if (removed == -1)
+		return (1);*/
+	if (removed == 0)
 	{
 		puts("av[1]");
 		return (0);
 	}
 
-	for (int i = full_mask; i > 0; i--)
+	for (int i = full_mask; i >= 0; i--)
 	{
 		if (isbalance(av[1], i) == removed)
 		{
