@@ -69,9 +69,7 @@ int isbalance(char *s, int mask)
 		if (counter < 0) return (-1);
 		i++;
 	}
-	////////////////////////////////
-	if (counter) return (-1); ///////////////////////////
-	////////////////////////////////
+	if (counter) return (-1);
 	return (removed);
 }
 

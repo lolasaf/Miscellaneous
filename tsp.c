@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tsp.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wel-safa <wel-safa@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: wel-safa <wel-safa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 21:06:40 by wel-safa          #+#    #+#             */
-/*   Updated: 2024/11/14 03:30:33 by wel-safa         ###   ########.fr       */
+/*   Updated: 2024/11/14 11:41:24 by wel-safa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ int	main(void)
 	int count = 0;
 	float **coords = NULL; // coordinates
 	
-	while(fscanf(stdin, "%f, %f\n", &x, &y) == 2)
+	while(fscanf(stdin, "%f, %f", &x, &y) == 2)
 	{
 		coords = realloc(coords, sizeof(float *) * (count + 1));
 		coords[count] = malloc(sizeof(float) * 2);

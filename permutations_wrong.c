@@ -1,3 +1,5 @@
+// THIS VERSION PRODUCES UNSORTED RESULTS.
+
 /*
 Assignment name  : permutations
 Expected files   : *.c *.h
@@ -28,6 +30,7 @@ cab$
 cba$
 */
 
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -36,42 +39,6 @@ void swap(char *str, int i, int j)
 	char c = (str)[i];
 	(str)[i] = (str)[j];
 	(str)[j] = c;
-}
-
-void firstswap(char *str, int i, int j)
-{
-	char tmp;
-
-	if (i > j)
-		swap(str, i, j);
-	else
-	{
-		while (j > i)
-		{
-			tmp = str[j];
-			str[j] = str[j - 1];
-			str[j - 1] = tmp;
-			j--;
-		}
-	}
-}
-
-void secondswap(char *str, int i, int j)
-{
-	char tmp;
-
-	if (i > j)
-		swap(str, i, j);
-	else
-	{
-		while (j > i)
-		{
-			tmp = str[i];
-			str[i] = str[i + 1];
-			str[i + 1] = tmp;
-			i++;
-		}
-	}
 }
 
 void permutations(char *str, int start, int end)
@@ -86,13 +53,16 @@ void permutations(char *str, int start, int end)
 		puts(str);
 		return ;
 	}
-	for (int i = start; i <= end; i++)
+	for (int i = start; i < end; i++)
 	{
-		firstswap(str, start, i); 
+		// swap current character with start character
+		swap(str, start, i); 
 
+		// call function recursively for next character
 		permutations(str, start + 1, end);
 
-		secondswap(str, start, i);
+		// Backtrack: swap back to original position
+		swap(str, start, i);
 	}
 }
 
@@ -106,7 +76,7 @@ int ft_strlen(char *s)
 	return (i);
 }
 
-void sortstring(char *str) // BUBBLE SORT
+void sortstring(char *str)
 {
 	if (!str) return;
 	int len = ft_strlen(str);
@@ -128,7 +98,13 @@ int	main(int ac, char **av)
 {
 	if (ac != 2)
 		return (1);
+	
 	int len = ft_strlen(av[1]);
-	sortstring(av[1]);
-	permutations(av[1], 0, len - 1);
+
+	char *str = (char *)calloc(sizeof(char), len + 1);
+	for (int i = 0; i < len; i++)
+		str[i] = av[1][i];
+	sortstring(str);
+	permutations(str, 0, len);
+	free(str);
 }
