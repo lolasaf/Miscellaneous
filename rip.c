@@ -87,9 +87,9 @@ int main(int ac, char **av)
 {
 	if (ac != 2)
 		return (1);
-	
 	int len = ft_strlen(av[1]);
 	int full_mask = (1 << len) - 1; // All bits set for the full string check
+	
 	// first check if balanced as is
 	if (isbalance(av[1], full_mask) > -1)
 	{
@@ -105,7 +105,10 @@ int main(int ac, char **av)
 		if (removed > -1)
 			break;
 	}
-	
+	if (removed == -1)
+		return (0);
+
+	// PRINT LOGIC
 	for (int i = full_mask; i > 0; i--)
 	{
 		if (isbalance(av[1], i) == removed)
