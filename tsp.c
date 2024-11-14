@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tsp.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wel-safa <wel-safa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wel-safa <wel-safa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 21:06:40 by wel-safa          #+#    #+#             */
-/*   Updated: 2024/11/13 01:52:31 by wel-safa         ###   ########.fr       */
+/*   Updated: 2024/11/14 03:30:33 by wel-safa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,12 +164,4 @@ int	main(void)
 	
 	printf("%.2f\n", min_dist);
 	// NEED TO FREE coords + dist_matrix
-
-	
-	/*Print coordinates test*/
-	/*for(int j = 0; j < i; j++)
-	{
-		printf("(%.2f, %.2f)\n", coords[j][0], coords[j][1]);
-	}*/
-
 }
