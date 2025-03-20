@@ -65,6 +65,7 @@ $> ./tsp < square.txt | cat -e
 4.00$
 */
 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
